@@ -4,8 +4,9 @@ const { Schema } = mongoose;
 const ProjectSchema = new Schema(
   {
     invitedUsers: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: [String],
       ref: "user",
+      default: [],
     },
     title: {
       type: String,
@@ -18,13 +19,15 @@ const ProjectSchema = new Schema(
     tasks: {
       type: [taskSchema],
       required: true,
+      default: [],
     },
     admin: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
       required: true,
     },
   },
   { timestamps: true }
 );
-const notes = mongoose.model("project", ProjectSchema);
-module.exports = notes;
+const project = mongoose.model("project", ProjectSchema);
+module.exports = project;
